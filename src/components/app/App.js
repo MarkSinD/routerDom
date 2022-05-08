@@ -1,9 +1,5 @@
 import {lazy, Suspense} from 'react';
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import AppHeader from "../appHeader/AppHeader";
 import Spinner from '../spinner/Spinner';
@@ -13,19 +9,23 @@ const SecondPage = lazy(() => import('../pages/SecondPage'));
 
 const App = () => {
     return (
-        <BrowserRouter>
+        <Router>
             <div className="app">
                 <AppHeader/>
                 <main>
                     <Suspense fallback={<Spinner/>}>
-                        <Routes>
-                            <Route exact path="/" element={<MainPage/>} />
-                            <Route exact path="/second" element={<SecondPage/>} />
-                        </Routes>
+                        <Switch>
+                            <Route exact path="/">
+                                <MainPage/>
+                            </Route>
+                            <Route exact path="/second">
+                                <SecondPage/>
+                            </Route>
+                        </Switch>
                     </Suspense>
                 </main>
             </div>
-        </BrowserRouter>
+        </Router>
     )
 }
 
